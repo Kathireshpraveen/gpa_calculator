@@ -1,11 +1,31 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpa_calculator/database.dart';
 
-class mygpa extends StatelessWidget {
-  const mygpa({Key? key}) : super(key: key);
 
+class my_gpa extends StatefulWidget {
+
+  List<Map>pdata;
+  my_gpa({Key? key,required this.pdata}) : super(key: key);
+  @override
+  State<my_gpa> createState() => _my_gpaState(data:pdata);
+}
+
+class _my_gpaState extends State<my_gpa> {
+  var gw=<Widget>[];
+  late List<Map>data;
+  _my_gpaState({required this.data});
+  @override
+  void initState()
+  {
+    super.initState();
+    data.forEach((row) {
+        gw.add(
+         Text("Name:"+row['name']+"          CGPA:"+row['gpa'].toString()+"      Total credit:"+row['credit'].toString())
+        );  
+    }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,31 +33,13 @@ class mygpa extends StatelessWidget {
         title: Text("My GPAs"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back), onPressed: (){
-            Navigator.pop(context);
+          Navigator.pop(context);
         },
         ),
       ),
-      body:Center(
-        child: FutureBuilder<List<name_gpa>>(
-          future: dbhelper.instance.get(),
-          builder: (BuildContext context,AsyncSnapshot<List<name_gpa>>snapshot){
-           if(!snapshot.hasData)
-           {
-             return Center(child: Text('Loading'));
-           }
-           return ListView(
-             children: snapshot.data!.map((name_gpa)
-             {
-               return Center(
-               child: ListTile(
-                title: Text(name_gpa.name!+name_gpa.gpa!.toString()),
-               ),
-               );
-             },
-             ).toList(),
-           );
-          },
-        ),
+      body:Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: gw,
       ),
     );
   }

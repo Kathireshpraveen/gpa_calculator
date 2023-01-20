@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/database.dart';
 import 'gpa_calc.dart';
 import 'info.dart';
 import 'mygpa.dart';
@@ -81,8 +82,9 @@ class home_page extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>mygpa()));
+                ElevatedButton(onPressed: () async{
+                  var data=await dbhelper.getdata();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>my_gpa(pdata:data)));
                 },
                   child: Text('MY GPA'),
                   style: ElevatedButton.styleFrom(
@@ -91,7 +93,7 @@ class home_page extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(onPressed: (){},
-                  child: Text('MY CALC'),
+                  child: Text('MY CGPA'),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(60),

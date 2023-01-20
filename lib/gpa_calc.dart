@@ -21,17 +21,18 @@ class _gpaState extends State<gpa> {
   var sc = <Widget>[];
   List<String> no_s=['0','1','2','3','4','5','6','7','8','9','10','11','12'];
   List<String>grade=['O','O','O','O','O','O','O','O','O','O','O','O'];
-  List<double>credit=[0,0,0,0,0,0,0,0,0,0,0,0];
+  List<int>credit=[0,0,0,0,0,0,0,0,0,0,0,0];
   List<String> g=['O','A+','A','B+','B','C','RA','SA'];
   var gp={'O':10,'A+':9,'A':8,'B+':7,'B':6,'C':5,'RA':0,'SA':0};
   List<String>cre=['0','1','2','3','4','5','6','7','9','10'];
-  String? ns='1';
+  String? ns='0';
+  int totalc=0;
   int i=1;
   double result=0;
   Widget build(BuildContext context) {
     void reset()
     {
-      print("call");
+      //print("call");
       sc=[];
       for(var i=1;i<=int.parse(ns!);i++)
       {
@@ -71,7 +72,7 @@ class _gpaState extends State<gpa> {
                       setState(() {
                         print(res);
                         print(credit[i-1]);
-                        credit[i-1]=double.parse(res!);
+                        credit[i-1]=int.parse(res!);
                         reset();
                       });
                     },
@@ -178,13 +179,15 @@ class _gpaState extends State<gpa> {
               dimension: 30,
             ),
             ElevatedButton(onPressed: (){
-              double res=0,tc=0;
+              double res=0;
+              int tc=0;
               for(i=0;i<int.parse(ns!);i++)
               {
                   res=res+credit[i]*gp[grade[i]]!;
                   tc=tc+credit[i];
               }
               res=res/tc;
+              totalc=tc;
               result=res;
               print(res);
              showDialog(
@@ -194,6 +197,7 @@ class _gpaState extends State<gpa> {
                    content: Text("Your GPA is:"+res.toString()+"\n\nTotal credit:"+tc.toString()),
                   actions: [
                     TextButton(onPressed: (){
+                      Navigator.pop(context);
                       showDialog(
                           context: context,
                           builder: (BuildContext context)=>AlertDialog(
@@ -207,9 +211,8 @@ class _gpaState extends State<gpa> {
                                   child:Text("CANCEL"),
                               ),
                               TextButton(onPressed: () async {
-                                  print("save the gpa");
-                                  await dbhelper.instance.add(
-                                      name_gpa(name: name.text,gpa:result));
+                                  await dbhelper.instance.add(name_gpa(name.text,result,totalc));
+                                  Navigator.pop(context);
                               }, child: Text("SAVE")),
                             ],
                           ),

@@ -7,19 +7,25 @@ final String tablename = 'gpa';
 final String columnId = '_id';
 final String columnName = 'name';
 final String columnGpa = 'gpa';
-
+final String columnCredit='credit';
 class name_gpa
 {
   int? id;
   String? name;
   double? gpa;
-
-  name_gpa({this.name,this.gpa});
+  int? credit;
+  name_gpa(String name,double gpa,int credit)
+  {
+    this.name=name;
+    this.gpa=gpa;
+    this.credit=credit;
+  }
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
       columnName: name,
       columnGpa:gpa,
+      columnCredit:credit,
     };
     return map;
   }
@@ -29,6 +35,7 @@ class name_gpa
     id = map[columnId] as int;
     name = map[columnName] as String;
     gpa = map[columnGpa] as double;
+    credit=map[columnCredit] as int;
   }
 }
 class dbhelper
@@ -55,7 +62,8 @@ class dbhelper
     CREATE TABLE $tablename(
     $columnId int,
     $columnName TEXT,
-    $columnGpa REAL 
+    $columnGpa REAL,
+    $columnCredit int 
     ) 
     ''');
   }
@@ -65,11 +73,10 @@ class dbhelper
     await db.insert('gpa',ng.toMap());
     return ng;
   }
-  Future<List<name_gpa>> get() async
+  static Future<List<Map>> getdata() async
   {
     Database db=await instance.database;
-    var ng = await db.query('gpa', columns: [columnName, columnGpa]);
-    List<name_gpa>ngl=ng.isNotEmpty? ng.map((c) => name_gpa.fromMap(c)).toList():[];
-    return ngl;
+    List<Map>res=await db.query('gpa', columns: [columnName, columnGpa,columnCredit]);
+    return res;
   }
 }
