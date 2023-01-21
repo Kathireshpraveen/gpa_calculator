@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'database.dart';
-
+//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toast/toast.dart';
 class gpa extends StatefulWidget {
   const gpa({Key? key}) : super(key: key);
 
@@ -30,6 +31,7 @@ class _gpaState extends State<gpa> {
   int i=1;
   double result=0;
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     void reset()
     {
       //print("call");
@@ -55,7 +57,7 @@ class _gpaState extends State<gpa> {
             child: Center(
               child: Row(
                 children: [
-                  Text(" "+i.toString()+"  Credit:  "+credit[i-1].toString(),
+                  Text("    "+i.toString()+"     Credit:  "+credit[i-1].toString()+"   ",
                     style: TextStyle(
                       fontSize:22,
                     ),
@@ -78,7 +80,7 @@ class _gpaState extends State<gpa> {
                     },
                   ),
 
-                  Text("   Grade: "+grade[i-1],
+                  Text("     Grade:  "+grade[i-1],
                     style: TextStyle(
                       fontSize:22,
                     ),
@@ -140,13 +142,18 @@ class _gpaState extends State<gpa> {
               child: Center(
                 child: Row(
                   children: [
-                    const Text("Enter the number of Subjects:",
+                    const Text("  Enter the number of Subjects:  ",
                     style: TextStyle(
                       fontSize:22,
                     ),
                   ),
+                    Text(ns!,
+                      style: TextStyle(
+                        fontSize:22,
+                      ),
+                    ),
                     DropdownButton<String>(
-                      icon: Icon(Icons.add),
+                      icon: Icon(Icons.arrow_drop_down),
                       items: no_s.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -160,11 +167,7 @@ class _gpaState extends State<gpa> {
                           });
                      },
                    ),
-                    Text(ns!,
-                      style: TextStyle(
-                      fontSize:22,
-                    ),
-                    ),
+
                   ],
                 ),
               ),
@@ -175,8 +178,45 @@ class _gpaState extends State<gpa> {
                 children:sc,
               ),
             ),
+
+            Row(
+              children: [
+                 Container(
+                  height: 70,
+                  width: 150,
+                ),
+                TextButton(onPressed: ()
+                {
+                setState(() {
+                  int cc=int.parse(ns!);
+                  if(cc==12)
+                  {
+
+                      Toast.show("Maximum number of Subjects is reached",
+                          duration: Toast.lengthShort, gravity: Toast.bottom);
+                  }
+                  else {
+                    cc++;
+                    ns = cc.toString();
+                    print(ns);
+                    reset();
+                  }
+                }
+                );
+                },
+                  style: TextButton.styleFrom(
+                  foregroundColor: Colors.black87,
+                  ),
+                  child: Text("Add one more Subject  +",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                ),
+              ],
+            ),
             const SizedBox.square(
-              dimension: 30,
+              dimension: 10,
             ),
             ElevatedButton(onPressed: (){
               double res=0;

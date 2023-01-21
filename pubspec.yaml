@@ -39,7 +39,8 @@ dependencies:
   url_launcher:
   sqflite:
   path_provider:
-
+  fluttertoast: ^8.0.9
+  toast: ^0.2.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
