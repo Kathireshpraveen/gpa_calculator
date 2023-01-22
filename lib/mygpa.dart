@@ -39,7 +39,65 @@ class _my_gpaState extends State<my_gpa> {
                   SizedBox(
                     width: 260,
                   ),
-                  TextButton(onPressed: (){},
+                  TextButton(onPressed: (){
+                    TextEditingController tc1=TextEditingController();
+                    TextEditingController tc2=TextEditingController();
+                    TextEditingController tc3=TextEditingController();
+                    tc1.text=row['name'];
+                    tc2.text=row['credit'].toString();
+                    tc3.text=row['gpa'].toString();
+                    showDialog(context: context,
+                        builder: (BuildContext context)=>AlertDialog(
+
+                          content: Container(
+                            height: 190,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextField(
+                                  controller: tc1,
+                                  decoration: InputDecoration(
+                                    labelText: "New Name:",
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  ),
+                                ),
+                                TextField(
+                                  controller: tc2,
+                                  decoration: InputDecoration(
+                                      labelText: 'New Credits:',
+
+                                      floatingLabelBehavior: FloatingLabelBehavior.always
+                                  ),
+                                ),
+                                TextField(
+                                  controller: tc3,
+                                  decoration: InputDecoration(
+                                      labelText: 'New GPA:',
+                                      floatingLabelBehavior: FloatingLabelBehavior.always
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(onPressed: (){
+                              Navigator.pop(context);
+                            }, child: Text("CANCEL")),
+                            TextButton(onPressed: () async {
+                              Navigator.pop(context);
+                              await dbhelper.update(row['id'],int.parse(tc2.text),double.parse(tc3.text),tc1.text);
+                              getdata().then((result) {
+                                setState(() {
+                                  gw=result;
+                                });
+                              });
+
+                            }, child: Text("UPDATE")),
+                          ],
+                        ),
+                    );
+
+                  },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.red,

@@ -84,11 +84,11 @@ class dbhelper
     Database db=await instance.database;
     await db.rawQuery('delete from gpa where id=$id');
   }
-  static void update(int id,int c,double g,String name) async
+  static Future update(int id,int c,double g,String name) async
   {
     Database db=await instance.database;
     await db.rawQuery('update gpa set credit=$c where id=$id');
     await db.rawQuery('update gpa set gpa=$g where id=$id');
-    await db.rawQuery('update gpa set name=$name where id=$id');
+    await db.rawQuery('update gpa set name="'+name+'" where id=$id');
   }
 }
