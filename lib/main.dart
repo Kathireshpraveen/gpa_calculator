@@ -57,9 +57,7 @@ class home_page extends StatelessWidget {
               ),
             ],
           ),
-          Flexible(
-            child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceAround,
+           Row(
               children: [
                   ElevatedButton(onPressed: (){
                     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>gpa()));
@@ -67,22 +65,23 @@ class home_page extends StatelessWidget {
                       child: Text('GPA CALCI'),
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
-                        padding: EdgeInsets.all(60),
+                        padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
                       ),
                   ),
                 ElevatedButton(onPressed: (){},
                      child: Text('CGPA CALCI'),
                       style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
-                      padding: EdgeInsets.all(60),
+                      padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
                 ),
                 ),
+
               ],
             ),
-          ),
+
           Flexible(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(onPressed: () {
 
@@ -91,14 +90,14 @@ class home_page extends StatelessWidget {
                   child: Text('MY GPA'),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(60),
+                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
                   ),
                 ),
                 ElevatedButton(onPressed: (){},
                   child: Text('MY CGPA'),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(60),
+                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
                   ),
                 ),
               ],

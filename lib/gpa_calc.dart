@@ -44,8 +44,8 @@ class _gpaState extends State<gpa> {
             ));
         sc.add(
           Container(
-            height: 60,
-            width: 500,
+            height: 50,
+            width: (WidgetsBinding.instance.window.physicalSize.width*0.3),
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -59,7 +59,7 @@ class _gpaState extends State<gpa> {
                 children: [
                   Text("    "+i.toString()+"     Credit:  "+credit[i-1].toString()+"   ",
                     style: TextStyle(
-                      fontSize:22,
+                      fontSize:WidgetsBinding.instance.window.physicalSize.width*0.0130694444,
                     ),
                   ),
                   DropdownButton<String>(
@@ -82,7 +82,7 @@ class _gpaState extends State<gpa> {
 
                   Text("     Grade:  "+grade[i-1],
                     style: TextStyle(
-                      fontSize:22,
+                      fontSize:WidgetsBinding.instance.window.physicalSize.width*0.0130694444,
                     ),
                   ),
                   DropdownButton<String>(
@@ -129,8 +129,8 @@ class _gpaState extends State<gpa> {
               dimension: 20,
             ),
             Container(
-              height: 60,
-              width: 500,
+              height: 50,
+              width:  (WidgetsBinding.instance.window.physicalSize.width*0.3),
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -142,14 +142,15 @@ class _gpaState extends State<gpa> {
               child: Center(
                 child: Row(
                   children: [
-                    const Text("  Enter the number of Subjects:  ",
+                    Text("  Enter the number of Subjects:  ",
                     style: TextStyle(
-                      fontSize:22,
+                      fontSize:WidgetsBinding.instance.window.physicalSize.width*0.0150111111111,
                     ),
                   ),
                     Text(ns!,
                       style: TextStyle(
-                        fontSize:22,
+                        fontSize:WidgetsBinding.instance.window.physicalSize.width*0.0150111111111,
+
                       ),
                     ),
                     DropdownButton<String>(
@@ -205,11 +206,11 @@ class _gpaState extends State<gpa> {
                 );
                 },
                   style: TextButton.styleFrom(
-                  foregroundColor: Colors.black87,
+                  foregroundColor: Colors.black,
                   ),
                   child: Text("Add one more Subject  +",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
                 ),
