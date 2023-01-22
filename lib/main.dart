@@ -84,9 +84,9 @@ class home_page extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(onPressed: () async{
-                  var data=await dbhelper.getdata();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>my_gpa(pdata:data)));
+                ElevatedButton(onPressed: () {
+
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>my_gpa()));
                 },
                   child: Text('MY GPA'),
                   style: ElevatedButton.styleFrom(

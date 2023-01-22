@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 final String tablename = 'gpa';
-final String columnId = '_id';
+final String columnId = 'id';
 final String columnName = 'name';
 final String columnGpa = 'gpa';
 final String columnCredit='credit';
@@ -60,7 +60,7 @@ class dbhelper
   {
     await db.execute('''
     CREATE TABLE $tablename(
-    $columnId int,
+    $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
     $columnName TEXT,
     $columnGpa REAL,
     $columnCredit int 
@@ -76,7 +76,19 @@ class dbhelper
   static Future<List<Map>> getdata() async
   {
     Database db=await instance.database;
-    List<Map>res=await db.query('gpa', columns: [columnName, columnGpa,columnCredit]);
+    List<Map>res=await db.query('gpa', columns: [columnId,columnName, columnGpa,columnCredit]);
     return res;
+  }
+  static Future delete(int id) async
+  {
+    Database db=await instance.database;
+    await db.rawQuery('delete from gpa where id=$id');
+  }
+  static void update(int id,int c,double g,String name) async
+  {
+    Database db=await instance.database;
+    await db.rawQuery('update gpa set credit=$c where id=$id');
+    await db.rawQuery('update gpa set gpa=$g where id=$id');
+    await db.rawQuery('update gpa set name=$name where id=$id');
   }
 }
