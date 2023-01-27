@@ -1,84 +1,78 @@
-
 import 'package:flutter/material.dart';
-
-class cgpa extends StatefulWidget {
-  const cgpa({Key? key}) : super(key: key);
+import 'database.dart';
+class cgpa_calc extends StatefulWidget {
+  const cgpa_calc({Key? key}) : super(key: key);
 
   @override
-  State<cgpa> createState() => _cgpaState();
+  State<cgpa_calc> createState() => _cgpa_calcState();
 }
 
-class _cgpaState extends State<cgpa> {
-
+class _cgpa_calcState extends State<cgpa_calc> {
   @override
+  var options=["View GPA","View CGPA"];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: (){
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: ()
+          {
             Navigator.pop(context);
           },
         ),
-        title: const Text("CGPA Calculation"),
-
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-
+        title: Text(
+          "CGPA Calculation"
+        ),
+        actions: [
+          DropdownButton<String>(
+            underline: SizedBox(),
+            icon: Icon(Icons.more_vert_outlined,
+              color: Colors.white,
+            ),
+            items: options.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged:(String? res) async {
+                if(res=="View GPA")
+                {
+                  List <Widget> w=[];
+                  var data=await dbhelper.getdata();
+                  data.forEach((row)
+                  {
+                    w.add(
+                      Text("\nName: "+row['name']+"\nCredits: "+row['credit'].toString()+"\nGPA: "+row['gpa'].toString())
+                    );
+                  }
+                  );
+                  showDialog(context: context, builder: (BuildContext context)=>
+                      AlertDialog(
+                        title: Text("MY GPAs"),
+                        content: SingleChildScrollView(
+                          child:Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: w,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(onPressed: (){
+                            Navigator.pop(context);
+                                },
+                              child: Text("CLOSE"),
+                          )
+                        ],
+                        )
+                  );
+                }
+            },
+          ),
         ],
       ),
     );
   }
 }
-Set<Widget> first()
-{
-  List<String> no_s=['1','2','3','4','5','6','7','8','9','10','11','12'];
-  String? ns='1';
-  var sc = <Widget>[];
-  return {
-    const SizedBox.square(
-      dimension: 20,
-    ),
-    Container(
-      height: 60,
-      width: 500,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.red,
-            width: 5,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(90.0))
-      ),
-      child: Center(
-        child: Row(
-          children: [
-            const Text("Enter the number of Subjects:",
-              style: TextStyle(
-                fontSize:22,
-              ),
-            ),
-            DropdownButton<String>(
-              icon: Icon(Icons.add),
-              items: no_s.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged:(String? res){
-                setState(() {
-                  ns=res!;
-                  print(res);
-                });
-              },
-            ),
-            Text(ns!),
-          ],
-        ),
-      ),
-    ),
-  };
-}
+

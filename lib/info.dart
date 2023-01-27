@@ -74,30 +74,38 @@ class info extends StatelessWidget {
           ),
             ],
           ),
-          Text("GPA calculator was created to help engineering students calculate their GPA(Grade Point Average) and CGPA(Cumulative Grade Point Average).\n Is Calculating your college GPA and CGPA troublesome?...Not sure if your calculation was right?...Want to double check your CGPA before filling out an important application?...No longer do you have to wait to receive your report card to be sure... Try our app to ease your calculations and store the results for future reference.",
-            style: TextStyle(
-              fontSize:18,
-            ),
-          ),
-          Row(
-            children: [
-              Text("Contacts:  ",
-              style:TextStyle(
+
+          Container(
+            width: WidgetsBinding.instance.window.physicalSize.width*0.25,
+            child: Text("GPA calculator was created to help engineering students calculate their GPA(Grade Point Average) and CGPA(Cumulative Grade Point Average).\n Is Calculating your college GPA and CGPA troublesome?...Not sure if your calculation was right?...Want to double check your CGPA before filling out an important application?...No longer do you have to wait to receive your report card to be sure... Try our app to ease your calculations and store the results for future reference.",
+              textAlign: TextAlign.justify,
+              style: TextStyle(
                 fontSize:18,
               ),
-              ),
-              IconButton(onPressed: () async{
-                await openwhatsapp();
-              }, icon: Icon(Icons.whatsapp_sharp,color: Colors.green,)),
-              IconButton(onPressed: () async{
-               await launchCaller();
-              },
-                  icon: Icon(Icons.contact_page_sharp,color: Colors.blue,)),
-              IconButton(onPressed: ()
-              async {
-                await launchmsg();
-              }, icon: Icon(Icons.message_sharp,color: Colors.blue,)),
-            ],
+            ),
+          ),
+          Container(
+            width: WidgetsBinding.instance.window.physicalSize.width*0.25,
+            child: Row(
+              children: [
+                Text("Contacts:  ",
+                style:TextStyle(
+                  fontSize:18,
+                ),
+                ),
+                IconButton(onPressed: () async{
+                  await openwhatsapp();
+                }, icon: Icon(Icons.whatsapp_sharp,color: Colors.green,)),
+                IconButton(onPressed: () async{
+                 await launchCaller();
+                },
+                    icon: Icon(Icons.contact_page_sharp,color: Colors.blue,)),
+                IconButton(onPressed: ()
+                async {
+                  await launchmsg();
+                }, icon: Icon(Icons.message_sharp,color: Colors.blue,)),
+              ],
+            ),
           ),
         ],
       ),

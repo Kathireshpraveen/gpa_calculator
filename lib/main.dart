@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/cgpa.dart';
 import 'package:gpa_calculator/database.dart';
 import 'gpa_calc.dart';
 import 'info.dart';
@@ -65,14 +66,16 @@ class home_page extends StatelessWidget {
                       child: Text('GPA CALCI'),
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
-                        padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
+                        padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/22),
                       ),
                   ),
-                ElevatedButton(onPressed: (){},
+                ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>cgpa_calc()));
+                },
                      child: Text('CGPA CALCI'),
                       style: ElevatedButton.styleFrom(
                       shape: CircleBorder(),
-                      padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
+                      padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/22),
                 ),
                 ),
 
@@ -90,14 +93,14 @@ class home_page extends StatelessWidget {
                   child: Text('MY GPA'),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
+                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/22),
                   ),
                 ),
                 ElevatedButton(onPressed: (){},
                   child: Text('MY CGPA'),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/21.29),
+                    padding: EdgeInsets.all(WidgetsBinding.instance.window.physicalSize.width/22),
                   ),
                 ),
               ],
